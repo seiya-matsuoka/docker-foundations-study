@@ -2,13 +2,9 @@
 
 ## 1. 学習目的
 
-本リポジトリでは、Docker / Container について体系的な学習経験や十分な実務経験がない状態から、実際に手を動かしながら基礎を一周し、アプリケーション開発で Docker を扱うための土台を身につけることを目的とする。
-
-単に Docker コマンドを覚えるのではなく、Image / Container / Port / Volume / Network / Dockerfile / Docker Compose などの役割と関係を段階的に理解し、最終的には複数 Container で構成された Web システムを自分で起動・確認できる状態を目指す。
-
+本リポジトリでは、Docker / Container について体系的な学習経験や十分な実務経験がない状態から、実際に手を動かしながら基礎を一周し、アプリケーション開発で Docker を扱うための土台を身につけることを目的とする。  
+単に Docker コマンドを覚えるのではなく、Image / Container / Port / Volume / Network / Dockerfile / Docker Compose などの役割と関係を段階的に理解し、最終的には複数 Container で構成された Web システムを自分で起動・確認できる状態を目指す。  
 学習では Docker 自体の理解と操作を中心とし、React / Spring Boot / PostgreSQL などは Docker を学ぶための題材として必要最小限の構成で扱う。
-
----
 
 ## 2. 到達目標
 
@@ -30,11 +26,7 @@
 - Multi-stage Build、Build Cache、Healthcheck など、Docker をより適切に使うための基本的な改善観点を理解できる。
 - 自分で Build した Image に Tag を付け、Docker Hub へ Push する基本的な流れを経験している。
 
----
-
 ## 3. 学習方針
-
-本学習では、以下の方針で進める。
 
 ### 3.1 ハンズオンを中心にする
 
@@ -59,8 +51,7 @@
 
 ### 3.3 Docker 以外の実装を作り込みすぎない
 
-React / Spring Boot / PostgreSQL は Docker 学習の題材として使用する。
-
+React / Spring Boot / PostgreSQL は Docker 学習の題材として使用する。  
 そのため、以下のような Docker 学習に直接関係しない実装は最小限に留める。
 
 - 複雑な UI
@@ -73,11 +64,8 @@ React / Spring Boot / PostgreSQL は Docker 学習の題材として使用する
 
 ### 3.4 前の学習内容を次の学習につなげる
 
-各 Unit は独立したテーマとして進めるが、前の Unit で学んだ内容を次の Unit で再利用・発展させる。
-
+各 Unit は独立したテーマとして進めるが、前の Unit で学んだ内容を次の Unit で再利用・発展させる。  
 たとえば、Volume は PostgreSQL のデータ永続化で再確認し、Network は Docker Compose の複数 Service 構成で再確認する。
-
----
 
 ## 4. 学習対象範囲
 
@@ -191,8 +179,6 @@ React / Spring Boot / PostgreSQL は Docker 学習の題材として使用する
 - Image サイズ
 - Docker Hub への Image Push
 
----
-
 ## 5. 学習対象外
 
 本カリキュラムでは、Docker の基礎からアプリケーション開発での利用までを対象とし、以下は扱わない。
@@ -226,17 +212,15 @@ React / Spring Boot / PostgreSQL は Docker 学習の題材として使用する
 
 これらは本カリキュラム完了後、必要に応じて別の学習テーマとして扱う。
 
----
-
 ## 6. 学習カリキュラム
 
-## Unit 01. Docker・Container の基本概念と環境確認
+### Unit 01. Docker・Container の基本概念と環境確認
 
-### 目的
+#### 目的
 
 Docker を操作する前提として、Docker / Container / Image が何を意味するのかを理解し、Windows 上で Docker を利用できる状態を確認する。
 
-### 主な学習内容
+#### 主な学習内容
 
 - Docker とは何か
 - Container とは何か
@@ -252,27 +236,25 @@ Docker を操作する前提として、Docker / Container / Image が何を意�
 - Docker Hub
 - Image から Container が実行される基本的な流れ
 
-### ハンズオンの大枠
+#### ハンズオンの大枠
 
 - Docker が利用できる状態を確認する。
 - 最小の既存 Image を使って Container を実行する。
 - Container がどの Image から作られたのかを確認する。
 
-### 到達状態
+#### 到達状態
 
 Docker Hub などの Registry に存在する Image を取得し、その Image を基に Docker が Container を作成・実行する、という基本的な流れを説明できる。
 
----
+### Unit 02. Image・Container の基本操作とライフサイクル
 
-## Unit 02. Image・Container の基本操作とライフサイクル
-
-### 目的
+#### 目的
 
 Docker CLI を使って Image / Container の基本操作を行い、両者を区別して扱えるようにする。
 
-### 主な学習内容
+#### 主な学習内容
 
-#### Image
+##### Image
 
 - Image の取得
 - Image 一覧
@@ -280,7 +262,7 @@ Docker CLI を使って Image / Container の基本操作を行い、両者を�
 - Image Tag
 - Image 情報確認
 
-#### Container
+##### Container
 
 - Container の作成・起動
 - run
@@ -296,7 +278,7 @@ Docker CLI を使って Image / Container の基本操作を行い、両者を�
 - Container 内部でのコマンド実行
 - Inspect
 
-#### ライフサイクル
+##### ライフサイクル
 
 - Image から Container を作成する流れ
 - Container の起動・停止・再実行
@@ -304,25 +286,23 @@ Docker CLI を使って Image / Container の基本操作を行い、両者を�
 - 不要リソースの整理
 - prune 系操作の概要
 
-### ハンズオンの大枠
+#### ハンズオンの大枠
 
 Linux 系 Image や Nginx などの既存 Image を利用し、Docker CLI で基本操作を繰り返す。
 
-### 到達状態
+#### 到達状態
 
 今扱っている対象が Image なのか Container なのかを区別しながら、基本的な Docker CLI 操作を行える。
 
----
+### Unit 03. Port・Bind Mount・Volume
 
-## Unit 03. Port・Bind Mount・Volume
-
-### 目的
+#### 目的
 
 Host と Container の間で、通信・ファイル共有・データ永続化をどのように扱うのかを理解する。
 
-### 主な学習内容
+#### 主な学習内容
 
-#### Port
+##### Port
 
 - Container 内部の Port
 - Host 側の Port
@@ -331,14 +311,14 @@ Host と Container の間で、通信・ファイル共有・データ永続化�
 - localhost
 - ブラウザから Container へアクセスする流れ
 
-#### Bind Mount
+##### Bind Mount
 
 - Bind Mount とは何か
 - Host 上のファイル / ディレクトリを Container から利用する
 - Host 側の変更が Container 側に反映されること
 - Bind Mount が向いている用途
 
-#### Volume
+##### Volume
 
 - Docker Volume
 - Named Volume
@@ -348,27 +328,24 @@ Host と Container の間で、通信・ファイル共有・データ永続化�
 - Bind Mount と Volume の違い
 - Container 自体を永続データ保管場所にしない考え方
 
-### ハンズオンの大枠
+#### ハンズオンの大枠
 
-Nginx と小さな HTML などを使い、Port Mapping と Bind Mount を確認する。
-
+Nginx と小さな HTML などを使い、Port Mapping と Bind Mount を確認する。  
 Named Volume を使い、Container を削除・再作成してもデータを保持できることを確認する。
 
-### 到達状態
+#### 到達状態
 
 Port / Bind Mount / Volume がそれぞれ異なる目的の仕組みであることを説明し、基本的な設定ができる。
 
----
+### Unit 04. Dockerfile と Image Build
 
-## Unit 04. Dockerfile と Image Build
-
-### 目的
+#### 目的
 
 既存 Image を利用するだけでなく、自分で Dockerfile を作成して Image を Build し、Container として実行できるようにする。
 
-### 主な学習内容
+#### 主な学習内容
 
-#### Dockerfile
+##### Dockerfile
 
 - Dockerfile とは何か
 - Base Image
@@ -380,13 +357,13 @@ Port / Bind Mount / Volume がそれぞれ異なる目的の仕組みである�
 - ENV
 - EXPOSE
 
-#### 補助的に扱う内容
+##### 補助的に扱う内容
 
 - ENTRYPOINT
 - ARG
 - CMD と ENTRYPOINT の大まかな違い
 
-#### Build
+##### Build
 
 - Dockerfile から Image を Build する
 - Build Context
@@ -395,36 +372,34 @@ Port / Bind Mount / Volume がそれぞれ異なる目的の仕組みである�
 - Build した Image から Container を起動する
 - Dockerfile を変更して再 Build する
 
-#### Image の構造
+##### Image の構造
 
 - Image Layer
 - Dockerfile の命令と Layer
 - Build Cache
 - Dockerfile の記述順と Cache
 
-#### Build Context の整理
+##### Build Context の整理
 
 - .dockerignore
 - 不要ファイルを Build Context に含めない
 - 秘密情報を不用意に Image へ含めない
 
-### ハンズオンの大枠
+#### ハンズオンの大枠
 
 HTML + Nginx などの極小サンプルを Dockerfile から Image 化し、Container として実行する。
 
-### 到達状態
+#### 到達状態
 
 Dockerfile → Build → Image → Container の一連の流れを自分で実行できる。
 
----
+### Unit 05. React / Vite アプリの Docker 化
 
-## Unit 05. React / Vite アプリの Docker 化
-
-### 目的
+#### 目的
 
 フロントエンドアプリケーションも Docker の共通的な考え方で Container 化できることを経験する。
 
-### 主な学習内容
+#### 主な学習内容
 
 - Node.js Base Image
 - React / Vite ソースコードと Container
@@ -436,29 +411,26 @@ Dockerfile → Build → Image → Container の一連の流れを自分で実�
 - Container 起動
 - ブラウザからの確認
 
-### サンプル方針
+#### サンプル方針
 
-React 自体の学習は目的としない。
-
+React 自体の学習は目的としない。  
 文字列表示など、ごく小さな画面だけを持つアプリケーションを使用する。
 
-### ハンズオンの大枠
+#### ハンズオンの大枠
 
 最小の React / Vite アプリに Dockerfile を用意し、Image を Build して Container としてブラウザからアクセスする。
 
-### 到達状態
+#### 到達状態
 
 React / Vite のようなフロントエンドアプリも Docker Image / Container として扱えることを理解する。
 
----
+### Unit 06. Spring Boot アプリの Docker 化
 
-## Unit 06. Spring Boot アプリの Docker 化
-
-### 目的
+#### 目的
 
 Java / Spring Boot アプリケーションを Docker Image 化し、Container で実行する流れを経験する。
 
-### 主な学習内容
+#### 主な学習内容
 
 - Java 用 Base Image
 - Spring Boot の Build 成果物
@@ -470,29 +442,26 @@ Java / Spring Boot アプリケーションを Docker Image 化し、Container �
 - Image Build
 - Container 起動
 
-### サンプル方針
+#### サンプル方針
 
-Spring Boot 自体の学習は目的としない。
-
+Spring Boot 自体の学習は目的としない。  
 単純な Endpoint から JSON を返す程度の最小構成とする。
 
-### ハンズオンの大枠
+#### ハンズオンの大枠
 
 Spring Boot アプリを Build して JAR を作成し、Dockerfile から Image 化して Container 内で実行する。
 
-### 到達状態
+#### 到達状態
 
 React と異なる技術スタックでも、Docker としては Image / Container という同じ基本構造で扱えることを理解する。
 
----
+### Unit 07. PostgreSQL Container とデータ永続化
 
-## Unit 07. PostgreSQL Container とデータ永続化
-
-### 目的
+#### 目的
 
 PostgreSQL 公式 Image を利用し、データベースを Container として動かす方法と、Volume による永続化を理解する。
 
-### 主な学習内容
+#### 主な学習内容
 
 - PostgreSQL 公式 Image
 - Image Tag
@@ -504,25 +473,22 @@ PostgreSQL 公式 Image を利用し、データベースを Container として
 - Container の削除・再作成
 - Host / Container / DB の関係
 
-### ハンズオンの大枠
+#### ハンズオンの大枠
 
-PostgreSQL Container を起動し、データを作成する。
-
+PostgreSQL Container を起動し、データを作成する。  
 Container を削除・再作成した後も Named Volume によってデータが保持されることを確認する。
 
-### 到達状態
+#### 到達状態
 
 既存の公式 Image を設定して利用する方法と、Volume の実践的な用途を理解する。
 
----
+### Unit 08. Docker Network と Container 間通信
 
-## Unit 08. Docker Network と Container 間通信
-
-### 目的
+#### 目的
 
 複数 Container が Docker Network を通して通信する仕組みを理解する。
 
-### 主な学習内容
+#### 主な学習内容
 
 - Docker Network
 - Bridge Network
@@ -535,25 +501,23 @@ Container を削除・再作成した後も Named Volume によってデータ�
 - Container 内部の localhost
 - 別 Container へ接続するときの Host 名
 
-### ハンズオンの大枠
+#### ハンズオンの大枠
 
 複数 Container を起動し、CLI で明示的に Network を作成・接続して Container 間通信を確認する。
 
-### 到達状態
+#### 到達状態
 
 Container A → Docker Network → Container B という通信を、Docker Compose に頼らず理解できる。
 
----
+### Unit 09. Docker Compose の基本
 
-## Unit 09. Docker Compose の基本
-
-### 目的
+#### 目的
 
 これまで Docker CLI で個別に指定してきた Container / Port / Network / Volume / Environment などを、compose.yaml でまとめて宣言・管理できるようにする。
 
-### 主な学習内容
+#### 主な学習内容
 
-#### 基本概念
+##### 基本概念
 
 - Docker Compose
 - compose.yaml
@@ -563,7 +527,7 @@ Container A → Docker Network → Container B という通信を、Docker Compo
 - Network
 - Volume
 
-#### Compose ファイル
+##### Compose ファイル
 
 - services
 - image
@@ -574,7 +538,7 @@ Container A → Docker Network → Container B という通信を、Docker Compo
 - networks
 - depends_on
 
-#### Compose 操作
+##### Compose 操作
 
 - 起動
 - バックグラウンド起動
@@ -586,7 +550,7 @@ Container A → Docker Network → Container B という通信を、Docker Compo
 - Logs
 - Container 内部でのコマンド実行
 
-#### 環境変数
+##### 環境変数
 
 - Container への環境変数
 - Dockerfile の ENV
@@ -595,29 +559,27 @@ Container A → Docker Network → Container B という通信を、Docker Compo
 - DB 接続情報などを Container 外から渡す考え方
 - 秘密情報を Git へ含めない
 
-#### 概念としてのみ触れる内容
+##### 概念としてのみ触れる内容
 
 - Docker Secrets
 - Build Secrets
 - .env が Production における Secrets 管理の完成形ではないこと
 
-### ハンズオンの大枠
+#### ハンズオンの大枠
 
 小さな複数 Service 構成を compose.yaml で定義し、Docker Compose から一括して起動・停止・確認する。
 
-### 到達状態
+#### 到達状態
 
 Docker Compose が「これまで CLI で個別指定していた Docker の設定をまとめて宣言する仕組み」であることを理解する。
 
----
+### Unit 10. Spring Boot + PostgreSQL の 2 Container 構成
 
-## Unit 10. Spring Boot + PostgreSQL の 2 Container 構成
-
-### 目的
+#### 目的
 
 アプリケーション + データベースという一般的な 2 Container 構成を Docker Compose で構築し、Container 間通信とデータ永続化を実践する。
 
-### 主な学習内容
+#### 主な学習内容
 
 - Spring Boot Service
 - PostgreSQL Service
@@ -634,31 +596,27 @@ Docker Compose が「これまで CLI で個別指定していた Docker の設�
 - Logs
 - 接続失敗時の確認
 
-### サンプル方針
+#### サンプル方針
 
-Spring Boot から PostgreSQL の最小限のデータを取得し、JSON として返す程度の構成とする。
-
+Spring Boot から PostgreSQL の最小限のデータを取得し、JSON として返す程度の構成とする。  
 CRUD や複雑な DB 設計は扱わない。
 
-### ハンズオンの大枠
+#### ハンズオンの大枠
 
-Spring Boot と PostgreSQL をそれぞれ Service として定義し、Docker Compose で起動する。
-
+Spring Boot と PostgreSQL をそれぞれ Service として定義し、Docker Compose で起動する。  
 Spring Boot Container から PostgreSQL Container へ Docker Network 経由で接続し、データを取得する。
 
-### 到達状態
+#### 到達状態
 
 Spring Boot + PostgreSQL の 2 Container 構成を Docker Compose で自分で起動・確認できる。
 
----
+### Unit 11. React + Spring Boot + PostgreSQL の 3 Container 構成
 
-## Unit 11. React + Spring Boot + PostgreSQL の 3 Container 構成
-
-### 目的
+#### 目的
 
 Frontend / Backend / Database からなる、実際の Web システムに近い 3 Container 構成を Docker Compose で構築する。
 
-### 主な学習内容
+#### 主な学習内容
 
 - Frontend / Backend / Database の 3 Service
 - React Container
@@ -673,14 +631,14 @@ Frontend / Backend / Database からなる、実際の Web システムに近い
 - Docker Network 内部から見た Host 名
 - Browser が Docker Network 内部に存在するわけではないこと
 
-### Docker 以外で必要最低限扱う内容
+#### Docker 以外で必要最低限扱う内容
 
 - React → Spring Boot の API 通信
 - API URL
 - CORS
 - 環境変数による接続先設定
 
-### サンプル方針
+#### サンプル方針
 
 以下の通信経路を確認するための最小構成とする。
 
@@ -691,76 +649,71 @@ Browser
 
 認証・状態管理・複雑な CRUD・UI 作り込み・本格的 DB 設計などは扱わない。
 
-### ハンズオンの大枠
+#### ハンズオンの大枠
 
-React / Spring Boot / PostgreSQL をそれぞれ Service として Docker Compose で起動する。
-
+React / Spring Boot / PostgreSQL をそれぞれ Service として Docker Compose で起動する。  
 Browser から React へアクセスし、React から Spring Boot API を呼び出し、Spring Boot が PostgreSQL のデータを取得して返す一連の流れを確認する。
 
-### 到達状態
+#### 到達状態
 
 Frontend + Backend + Database の 3 Container 構成を Docker 上で動かし、それぞれの通信経路と接続先の違いを説明できる。
 
----
+### Unit 12. Dockerfile・Compose の改善と基本的な Best Practice
 
-## Unit 12. Dockerfile・Compose の改善と基本的な Best Practice
-
-### 目的
+#### 目的
 
 一度動く構成を作った後、Dockerfile / Compose をより適切にするための基本的な改善観点を学ぶ。
 
-### 主な学習内容
+#### 主な学習内容
 
-#### Multi-stage Build
+##### Multi-stage Build
 
 - Build 環境と Runtime 環境の分離
 - 最終 Image に不要な Build ツールを含めない
 - React / Spring Boot などで実際に適用する
 
-#### Build Cache
+##### Build Cache
 
 - Dockerfile の記述順
 - 依存関係ファイルを先に COPY する考え方
 - 再 Build 効率
 
-#### .dockerignore
+##### .dockerignore
 
 - 不要ファイルを Build Context へ含めない
 - 実践構成で再確認する
 
-#### Base Image / Image Tag
+##### Base Image / Image Tag
 
 - Base Image 選択の基本
 - latest のみに依存しない考え方
 - Version Tag
 - slim / Alpine などの存在
 
-#### Healthcheck
+##### Healthcheck
 
 - Container が起動していることと、アプリケーションが正常であることの違い
 - Healthcheck の基本
 - depends_on と準備完了の違い
 
-#### Restart Policy
+##### Restart Policy
 
 - Container 終了時の再起動設定があること
 - 開発環境と Production 環境で必要性が異なること
 
-#### non-root Container
+##### non-root Container
 
 - 必要以上に root で動かさない考え方
 - Dockerfile の USER
 
-#### Image サイズ
+##### Image サイズ
 
 - .dockerignore
 - Multi-stage Build
 - Base Image
-- 不要ファイル
+- 不要ファイルとの関係
 
-との関係
-
-#### Docker Hub への Image Push
+##### Docker Hub への Image Push
 
 - Docker Hub Account / Repository
 - Login
@@ -768,7 +721,7 @@ Frontend + Backend + Database の 3 Container 構成を Docker 上で動かし�
 - Push
 - Registry へ Image を置く意味
 
-### 扱わない内容
+#### 扱わない内容
 
 - CI/CD からの自動 Push
 - GitHub Container Registry
@@ -776,17 +729,14 @@ Frontend + Backend + Database の 3 Container 構成を Docker 上で動かし�
 - Image 署名
 - 本格的な Production 向け Security
 
-### ハンズオンの大枠
+#### ハンズオンの大枠
 
-これまで作成した Dockerfile / Compose 構成を題材に、Multi-stage Build や Build Cache、Healthcheck などの改善を適用する。
-
+これまで作成した Dockerfile / Compose 構成を題材に、Multi-stage Build や Build Cache、Healthcheck などの改善を適用する。  
 最後に、自分で Build した Image に Tag を付け、Docker Hub へ Push する基本的な流れを 1 回経験する。
 
-### 到達状態
+#### 到達状態
 
 「Container が動けば終わり」ではなく、Dockerfile / Compose をどのような観点で改善するのかを初学者レベルで判断できる。
-
----
 
 ## 7. 横断的に扱う学習内容
 
@@ -829,8 +779,6 @@ Port / File / Volume / Network / localhost などを扱うたびに、Host と C
 ### 7.4 環境変数
 
 React / Spring Boot / PostgreSQL / Docker Compose を通して、設定値を Container 外から渡す考え方を繰り返し確認する。
-
----
 
 ## 8. 一周完了時の到達状態
 
