@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unit 03 Bind Mount</title>
+    <style>
+      /* Docker の Bind Mount 確認が目的のため、UI は最小限にしている。 */
+      body {
+        font-family: sans-serif;
+        max-width: 720px;
+        margin: 48px auto;
+        padding: 0 24px;
+        line-height: 1.7;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+    このファイルは Host 側に存在する。
+    Unit 03 では、このディレクトリを Nginx Container の
+    /usr/share/nginx/html へ Bind Mount して表示する。
+  -->
+    <h1>Unit 03 - Bind Mount</h1>
+    <p id="message">Host 側の HTML を Container から参照しています。</p>
+  </body>
+</html>
