@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unit 04 Dockerfile Build</title>
+    <style>
+      /* Dockerfile / Image Build の確認が目的のため、UI は最小限にしている。 */
+      body {
+        font-family: sans-serif;
+        max-width: 720px;
+        margin: 48px auto;
+        padding: 0 24px;
+        line-height: 1.7;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+    Unit 03 の Bind Mount とは異なり、
+    Unit 04 ではこの File を Dockerfile の COPY で Image 内へ取り込む。
+  -->
+    <h1>Unit 04 - Dockerfile Build</h1>
+    <p id="message">Dockerfile から Build した Image の HTML です。</p>
+  </body>
+</html>

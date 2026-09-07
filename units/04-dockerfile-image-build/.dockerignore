@@ -1,0 +1,22 @@
+# この Unit の Image Build に不要な学習ドキュメント
+README.md
+
+# Git / Editor / OS
+.git/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Log / Temporary File
+*.log
+*.tmp
+*.temp
+
+# Local Environment / Secret の可能性がある File
+.env
+.env.*
+*.pem
+*.key
+secret*
