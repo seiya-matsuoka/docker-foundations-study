@@ -1644,58 +1644,21 @@ Cache をどう活かすか
 
 ## 完了条件
 
-以下をすべて満たしたら Unit 04 を完了とする。
+以下を満たしたら Unit 04 を完了とする。
 
-- Dockerfile が Image の Build 手順を記述する File であることを説明できる。
-- Dockerfile / Image / Container の違いを説明できる。
-- Dockerfile → Build → Image → Container の方向関係を説明できる。
-- Base Image の役割を説明できる。
-- `FROM` の役割を説明できる。
-- `WORKDIR` が後続命令の基準 Directory になることを説明できる。
-- `RUN` が Build 時に実行されることを説明できる。
-- `COPY` で Build Context の File を Image へ取り込める。
-- `COPY` と Unit 03 の Bind Mount の違いを説明できる。
-- `ARG` が Build 時の Parameter であることを説明できる。
-- `--build-arg` で `ARG` の値を変更できる。
-- `ENV` が Image / Container に保持される Environment Variable であることを説明できる。
-- `ARG` / `ENV` に Secret を安易に設定しない理由を理解している。
-- `EXPOSE` と `-p` の違いを説明できる。
-- `CMD` が Container 起動時の Default Command であることを説明できる。
-- `RUN` と `CMD` の実行 Timing を区別できる。
-- `ENTRYPOINT` が Container 起動時の挙動に関係することを大まかに理解している。
-- Base Image の `ENTRYPOINT` が継承されることを Inspect で確認できる。
-- `docker image build` で Dockerfile から Image を Build できる。
-- `-t` で Image Name / Tag を付けられる。
-- Build Command の最後の `.` が Build Context であることを説明できる。
-- Build Context と Dockerfile の役割を区別して考えられる。
-- Build した Image を `docker image ls` で確認できる。
-- 自分で Build した Image から Container を起動できる。
-- Browser から Image 内へ `COPY` した HTML を確認できる。
-- Dockerfile / HTML を変更しただけでは既存 Image / Container が自動更新されないことを理解している。
-- 変更後に再 Build し、新しい Image へ変更を反映できる。
-- Image Layer の基本的な積み重なりを説明できる。
-- `docker image history` で Image の Build 履歴を確認できる。
-- 同じ内容で再 Build し、Build Cache が利用されることを確認できる。
-- `COPY` 対象 File の変更により、その Step の Cache が無効になることを確認できる。
-- ある Step の変更が後続 Step の Cache に影響することを理解している。
+- Dockerfile / Image / Container の役割と、`Dockerfile → Build → Image → Container` の流れを説明できる。
+- Base Image と `FROM`、`WORKDIR`、`RUN`、`COPY` の基本的な役割を説明できる。
+- `RUN` と `CMD` の実行 Timing を区別し、`ENTRYPOINT` についても Container 起動時の挙動に関係することを大まかに理解している。
+- `ARG` と `ENV` の基本的な違いを説明し、`--build-arg` を使って Build 時の値を変更できる。
+- `EXPOSE` と `-p` / Port Publishing の役割の違いを説明できる。
+- `docker image build` を使い、Image Name / Tag を付けて Dockerfile から Image を Build できる。
+- Build Context の意味を説明し、Dockerfile と Build Context の役割を区別できる。
+- 自分で Build した Image から Container を起動し、Image 内へ `COPY` した Content を確認できる。
+- `COPY` と Bind Mount の違いを説明し、Host 側 File の変更を Image へ反映するには再 Build が必要であることを理解している。
+- Dockerfile や Build Context の File を変更し、再 Build して変更後の Image を作成できる。
+- Image Layer と `docker image history` の基本的な意味を理解している。
+- Build Cache の役割を説明し、変更された Step と後続 Step の Cache への影響を大まかに説明できる。
 - Dockerfile の記述順が Build Cache の効率に影響する理由を説明できる。
-- `.dockerignore` が Build Context から不要 File を除外することを説明できる。
-- `.gitignore` と `.dockerignore` の役割の違いを説明できる。
-- 不要 File や秘密情報を不用意に Build Context / Image へ含めない考え方を理解している。
-- 次の一連の流れを自分で説明・実行できる。
-
-```text
-Dockerfile
-↓
-Build Context
-↓
-docker image build
-↓
-Image
-↓
-docker container run
-↓
-Container
-```
+- `.dockerignore` の目的と `.gitignore` との違いを説明し、不要 File や秘密情報を Build Context / Image へ不用意に含めない考え方を理解している。
 
 ここまで確認できれば、Unit 05「React / Vite Application の Docker 化」へ進む。
