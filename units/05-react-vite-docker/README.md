@@ -688,8 +688,7 @@ React / React DOM と Vite 関連 Package が定義されていることを確�
 cat src/App.jsx
 ```
 
-画面へ固定文字列を表示するだけの小さな Component であることを確認する。
-
+画面へ固定文字列を表示するだけの小さな Component であることを確認する。  
 この Unit では React Code の詳細を読み解く必要はない。
 
 ### 2. Dockerfile を読む
@@ -798,8 +797,7 @@ docker container run \
   node --version
 ```
 
-Base Image で指定した Node.js `24.20.0` 系が確認できる。
-
+Base Image で指定した Node.js `24.20.0` 系が確認できる。  
 `--rm` により、この確認用 Container は Process 終了後に自動削除される。
 
 ここで、
@@ -845,10 +843,8 @@ Host 5173
 docker container logs unit05-react-vite
 ```
 
-Vite Development Server が起動していることを示す Log を確認する。
-
-環境によって細かな表示は異なるが、Vite Version や Server の Address が表示される。
-
+Vite Development Server が起動していることを示す Log を確認する。  
+環境によって細かな表示は異なるが、Vite Version や Server の Address が表示される。  
 Application が Browser から見えない場合でも、まず Container Status と Logs を確認するという Unit 02 からの基本を再利用する。
 
 ### 9. Browser から Application を確認する
@@ -948,8 +944,7 @@ docker image build \
   .
 ```
 
-Build Output で `RUN npm install` などが Cache から再利用されることを確認する。
-
+Build Output で `RUN npm install` などが Cache から再利用されることを確認する。  
 Unit 04 の Build Cache が実際の npm Application でも同じ考え方で働いている。
 
 ### 13. React Source のみ変更する
@@ -996,8 +991,7 @@ docker image build \
   .
 ```
 
-Build Output を確認する。
-
+Build Output を確認する。  
 `package.json` は変更していないため、
 
 ```text
@@ -1011,8 +1005,7 @@ RUN npm install
 COPY .
 ```
 
-は Source Code 変更のため再評価されることを確認する。
-
+は Source Code 変更のため再評価されることを確認する。  
 この順番が Dockerfile で Dependency 定義を Source より先に Copy した理由である。
 
 ### 15. 既存 Container を作り直す
