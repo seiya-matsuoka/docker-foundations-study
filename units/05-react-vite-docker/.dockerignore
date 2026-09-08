@@ -1,0 +1,28 @@
+# Dependency は Image Build 中に npm install するため、Host 側のものを持ち込まない。
+node_modules/
+
+# Vite Build Artifact
+dist/
+
+# 学習ドキュメントは Application Image に不要。
+README.md
+
+# Git / Editor / OS
+.git/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Log / Temporary File
+*.log
+*.tmp
+*.temp
+
+# Local Environment / Secret の可能性がある File
+.env
+.env.*
+*.pem
+*.key
+secret*
