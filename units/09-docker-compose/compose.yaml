@@ -1,0 +1,53 @@
+name: unit09-compose
+
+services:
+  web:
+    # Unit 04 と同様に Dockerfile から Custom Image を Build する。
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    # Host Port は .env から Compose の値補間で受け取る。
+    # Container 側の Nginx は Port 80 で Listen する。
+    ports:
+      - "${WEB_PORT:-8080}:80"
+
+    # Dockerfile の ENV にある Default 値を Compose 側から上書きする。
+    environment:
+      APP_STAGE: "${APP_STAGE:-compose-learning}"
+
+    networks:
+      - unit09-network
+
+  client:
+    # Dockerfile を Build せず、既存の Official Image をそのまま利用する。
+    image: alpine:3.24.1
+
+    # Container を継続起動し、docker compose exec で確認できる状態にする。
+    command: ["sleep", "1d"]
+
+    environment:
+      CLIENT_MESSAGE: "${CLIENT_MESSAGE:-Hello from Compose}"
+
+    # Named Volume を /data へ Mount し、Compose から Volume を管理する。
+    volumes:
+      - unit09-data:/data
+
+    networks:
+      - unit09-network
+
+    # web Service を先に起動する依存関係を表す。
+    # Simple depends_on は Application の Readiness まで保証するものではない。
+    depends_on:
+      - web
+
+networks:
+  # Unit 08 で CLI から作成した User-defined Bridge Network を
+  # Compose Project の Resource として宣言する。
+  unit09-network:
+    driver: bridge
+
+volumes:
+  # Unit 07 までに CLI から作成した Named Volume を
+  # Compose Project の Resource として宣言する。
+  unit09-data:
