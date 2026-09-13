@@ -1,0 +1,56 @@
+name: unit10-spring-postgresql
+
+services:
+  app:
+    # Host 側で Maven Build 済みの JAR を Dockerfile から Image 化する。
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    # Browser / curl から Spring Boot API へアクセスするために Host へ公開する。
+    ports:
+      - "${APP_PORT:-8080}:8080"
+
+    # DB Host には localhost ではなく PostgreSQL Service 名の postgres を指定する。
+    # Spring Boot Container と PostgreSQL Container は同じ Docker Network 内で通信する。
+    environment:
+      DB_URL: "jdbc:postgresql://postgres:5432/${POSTGRES_DB:-unit10_db}"
+      DB_USER: "${POSTGRES_USER:-unit10_user}"
+      DB_PASSWORD: "${POSTGRES_PASSWORD:-unit10-password}"
+
+    # Short syntax の depends_on は起動順序を表す。
+    # PostgreSQL が接続可能になる Readiness までは保証しない。
+    depends_on:
+      - postgres
+
+    networks:
+      - unit10-network
+
+  postgres:
+    # Unit 07 と同じ PostgreSQL Official Image / Version を利用する。
+    image: postgres:18.6-alpine3.24
+
+    # 空の PostgreSQL Data Directory を初期化するときに利用する設定。
+    environment:
+      POSTGRES_DB: "${POSTGRES_DB:-unit10_db}"
+      POSTGRES_USER: "${POSTGRES_USER:-unit10_user}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:-unit10-password}"
+
+    volumes:
+      # PostgreSQL 18 では /var/lib/postgresql を Named Volume の Mount 先とする。
+      - unit10-postgres-data:/var/lib/postgresql
+
+      # 初回の空 Volume 初期化時だけ、最小 Table / Data を作成する SQL を実行する。
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+
+    networks:
+      - unit10-network
+
+networks:
+  # Spring Boot と PostgreSQL を同じ User-defined Bridge Network へ接続する。
+  unit10-network:
+    driver: bridge
+
+volumes:
+  # PostgreSQL Container を再作成しても Database Data を保持する Named Volume。
+  unit10-postgres-data:
