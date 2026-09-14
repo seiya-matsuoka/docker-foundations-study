@@ -1,0 +1,22 @@
+# Host 側の Dependency / Build Artifact を Image へ持ち込まない。
+node_modules/
+dist/
+coverage/
+
+# Local Environment File は Build Context へ含めない。
+.env
+.env.*
+!.env.example
+
+# Repository / Editor / OS
+.git/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Log / Temporary File
+*.log
+*.tmp
+*.temp
