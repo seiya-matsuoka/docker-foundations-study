@@ -1,0 +1,33 @@
+# Runtime Image には Maven Build 後の JAR だけを取り込む。
+src/
+pom.xml
+README.md
+
+# Maven Build Artifact のうち、実行 JAR 以外の補助生成物は除外する。
+target/classes/
+target/generated-sources/
+target/generated-test-sources/
+target/maven-archiver/
+target/maven-status/
+target/test-classes/
+target/surefire-reports/
+target/*.jar.original
+
+# Local Environment / Repository / Editor / OS
+.env
+.env.*
+.git/
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Log / Temporary / Secret の可能性がある File
+*.log
+*.tmp
+*.temp
+*.pem
+*.key
+secret*
