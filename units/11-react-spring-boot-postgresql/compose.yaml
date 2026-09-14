@@ -1,0 +1,79 @@
+name: unit11-react-spring-postgresql
+
+services:
+  frontend:
+    # Unit 05 と同じく Vite Development Server を Container 内で実行する。
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+
+    # Host Browser から React / Vite へアクセスするために Port を Publish する。
+    ports:
+      - "${FRONTEND_PORT:-5173}:5173"
+
+    # VITE_ Prefix の Environment Variable は Vite から Frontend Code へ公開される。
+    # React の fetch は Browser 上で実行されるため、接続先は localhost:8080 とする。
+    environment:
+      VITE_API_BASE_URL: "${VITE_API_BASE_URL:-http://localhost:8080}"
+
+    # 起動順序だけを表し、Backend の Readiness までは保証しない。
+    depends_on:
+      - backend
+
+    networks:
+      - unit11-network
+
+  backend:
+    # Host 側で Maven Build 済みの JAR を Spring Boot Runtime Image に取り込む。
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+
+    # Browser 上の React から Spring Boot API へ到達できるよう Host へ公開する。
+    ports:
+      - "${BACKEND_PORT:-8080}:8080"
+
+    environment:
+      # Spring Boot Container から PostgreSQL へは Docker Network 内の Service 名を利用する。
+      DB_URL: "jdbc:postgresql://postgres:5432/${POSTGRES_DB:-unit11_db}"
+      DB_USER: "${POSTGRES_USER:-unit11_user}"
+      DB_PASSWORD: "${POSTGRES_PASSWORD:-unit11-password}"
+
+      # Browser Origin からの API Request を許可するための最小 CORS 設定。
+      CORS_ALLOWED_ORIGIN: "${CORS_ALLOWED_ORIGIN:-http://localhost:5173}"
+
+    depends_on:
+      - postgres
+
+    networks:
+      - unit11-network
+
+  postgres:
+    # Unit 07 / 10 と同じ PostgreSQL Official Image / Version を利用する。
+    image: postgres:18.6-alpine3.24
+
+    # 空の PostgreSQL Data Directory を初期化するときに利用する設定。
+    environment:
+      POSTGRES_DB: "${POSTGRES_DB:-unit11_db}"
+      POSTGRES_USER: "${POSTGRES_USER:-unit11_user}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:-unit11-password}"
+
+    volumes:
+      # PostgreSQL 18 では /var/lib/postgresql を Named Volume の Mount 先とする。
+      - unit11-postgres-data:/var/lib/postgresql
+
+      # 初回の空 Volume 初期化時だけ、学習用 Table / Data を作成する。
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+
+    networks:
+      - unit11-network
+
+networks:
+  # 3 Service を同じ User-defined Bridge Network に参加させる。
+  # ただし Browser 自体がこの Docker Network 内に存在するわけではない。
+  unit11-network:
+    driver: bridge
+
+volumes:
+  # PostgreSQL Container を再作成しても Database Data を保持する Named Volume。
+  unit11-postgres-data:
