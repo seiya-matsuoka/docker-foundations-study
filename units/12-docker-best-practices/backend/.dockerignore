@@ -1,0 +1,27 @@
+# Docker 内の Maven Build を利用するため Host Build Artifact は不要。
+target/
+
+# 比較用 Dockerfile は通常 Build Context へ含めない。
+Dockerfile.before
+
+# Local Environment
+.env
+.env.*
+
+# Repository / Editor / OS
+.git/
+.gitignore
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Log / Temporary / Secret の可能性がある File
+*.log
+*.tmp
+*.temp
+*.pem
+*.key
+secret*
