@@ -1,0 +1,17 @@
+# Unit 11 相当の比較用 Dockerfile。
+# Node.js / npm / Source Code / node_modules を Runtime Image に残し、
+# Vite Development Server をそのまま起動する。
+
+FROM node:24.20.0-alpine3.24
+
+WORKDIR /app
+
+COPY package.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 5173
+
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]

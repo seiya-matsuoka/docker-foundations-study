@@ -1,0 +1,13 @@
+# Unit 11 相当の比較用 Dockerfile。
+# Host 側で Maven Build 済みの JAR を JRE Image へ Copy する構成。
+# Runtime Image 自体は既に軽量だが、Build が Host Maven に依存する。
+
+FROM eclipse-temurin:21.0.12_8-jre-alpine-3.24
+
+WORKDIR /app
+
+COPY target/unit12-spring-backend-1.0.0.jar app.jar
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "app.jar"]
