@@ -1,0 +1,26 @@
+# Dependency / Build Artifact
+node_modules/
+dist/
+coverage/
+
+# 比較用 Dockerfile は通常 Build Context へ含めない。
+Dockerfile.before
+
+# Local Environment
+.env
+.env.*
+!.env.example
+
+# Repository / Editor / OS
+.git/
+.gitignore
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Log / Temporary
+*.log
+*.tmp
+*.temp
