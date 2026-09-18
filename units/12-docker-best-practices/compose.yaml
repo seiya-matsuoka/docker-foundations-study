@@ -1,0 +1,111 @@
+name: unit12-docker-best-practices
+
+services:
+  frontend:
+    # Multi-stage Build 後の Image を分かりやすい Local Tag で保持する。
+    image: unit12-frontend:1.0.0
+
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+
+      # Vite の Production Build 時に Browser 用 API URL を渡す。
+      # Build 後の JavaScript に含まれ得るため Secret は渡さない。
+      args:
+        VITE_API_BASE_URL: "${VITE_API_BASE_URL:-http://localhost:8080}"
+
+    # Runtime Stage は Nginx なので Container Port は 80。
+    ports:
+      - "${FRONTEND_PORT:-5173}:80"
+
+    # Backend が Healthy になってから Frontend を起動する。
+    depends_on:
+      backend:
+        condition: service_healthy
+
+    healthcheck:
+      test:
+        ["CMD-SHELL", "wget -qO- http://127.0.0.1/ >/dev/null 2>&1 || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+
+    # 学習用に Restart Policy の挙動を確認する。
+    # Local 開発で常に必須という意味ではない。
+    restart: unless-stopped
+
+    networks:
+      - unit12-network
+
+  backend:
+    # Docker 内で Maven Build まで完結する Multi-stage Build。
+    image: unit12-backend:1.0.0
+
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+
+    ports:
+      - "${BACKEND_PORT:-8080}:8080"
+
+    environment:
+      DB_URL: "jdbc:postgresql://postgres:5432/${POSTGRES_DB:-unit12_db}"
+      DB_USER: "${POSTGRES_USER:-unit12_user}"
+      DB_PASSWORD: "${POSTGRES_PASSWORD:-unit12-password}"
+      CORS_ALLOWED_ORIGIN: "${CORS_ALLOWED_ORIGIN:-http://localhost:5173}"
+
+    # PostgreSQL が Healthy になってから Backend を起動する。
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    # API が PostgreSQL まで含めて応答できることを簡易 Healthcheck とする。
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget -qO- http://127.0.0.1:8080/api/message >/dev/null 2>&1 || exit 1",
+        ]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 20s
+
+    restart: unless-stopped
+
+    networks:
+      - unit12-network
+
+  postgres:
+    image: postgres:18.6-alpine3.24
+
+    environment:
+      POSTGRES_DB: "${POSTGRES_DB:-unit12_db}"
+      POSTGRES_USER: "${POSTGRES_USER:-unit12_user}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:-unit12-password}"
+
+    volumes:
+      - unit12-postgres-data:/var/lib/postgresql
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+
+    # PostgreSQL Official Image に含まれる pg_isready で
+    # Connection を受け付けられる状態か確認する。
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+    restart: unless-stopped
+
+    networks:
+      - unit12-network
+
+networks:
+  unit12-network:
+    driver: bridge
+
+volumes:
+  unit12-postgres-data:
